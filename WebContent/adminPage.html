@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="AdminApp">
+<head>
+	
+	<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./css/adminPage.css" />
+	
+	<script type="text/javascript" src="./angular.min.js"></script>
+	<script type="text/javascript" src="./JavaScripts/adminPage.js"></script>
+	<script type="text/javascript" src="./JavaScripts/menu.js"></script>
+	<script type="text/javascript" src="./JavaScripts/cookie.js"></script>
+	
+	<meta charset="UTF-8">
+	<title>Admin</title>
+	
+</head>
+<body ng-controller="AdminController" ng-init="checkIfAdmin()" ng-show="isAdmin()">
+
+	<menu-directive></menu-directive>
+
+	<div class="container" ng-init="getNewUsers()">
+	
+		
+		<a href="https://localhost:8443/Project1WithGerryDB/services/xml">
+			<span class="menu-icon fa fa-bars"></span>
+			Get XML 
+		</a>
+
+		<div class="table" id="newUsersTable">
+			<div class="col-lg-3 col-lg-offset-1 col-md-2 col-md-offset-1 col-sm-4 col-xs-12 " ng-repeat="user in users track by $index">
+				<div class="img-box">
+					<a href="#"><img src="./pictures/yasuo_1.jpeg" class="img-responsive"></a>
+				</div>
+					<h1>{{user.username}}</h1>
+					<p><b>name:</b> {{user.name}}</p>
+					<p><b>surname:</b> {{user.surname}}</p>
+					<p><b>email:</b> {{user.email}}</p>
+					<p><b>Phone Number:</b> {{user.phoneNumber}}</p>
+					<p><b>Address:</b> {{user.address}}</p>
+					<p><b>Latitude:</b> {{user.latitude}}</p>
+					<p><b>Longtitude:</b> {{user.longtitude}}</p>
+					<p><b>Afm:</b> {{user.afm}}</p>
+					<button id="accept" type="button" class="btn btn-labeled btn-accept btn-success" ng-click="acceptNewUser(user)" ng-show="user.showAccept">Accept </button>
+					<button id ="decline" type="button" class="btn btn-labeled btn-decline btn-danger" ng-click="declineNewUser(user)" ng-show="user.showDecline"> Decline </button>
+					<div id= "isOk" class="alert alert-success btn-feedback" ng-show="inserted(user)"> <strong>Inserted!</strong> </div>
+					<div id ="isNotOk" class="alert alert-danger btn-feedback" ng-show="declined(user)"> <strong>Declined!</strong></div> 
+			</div>
+		</div>
+		
+	</div>
+
+</body>
+</html>

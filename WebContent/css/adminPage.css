@@ -1,0 +1,25 @@
+body, html {
+    height: 100%;
+    background-repeat: no-repeat;
+    /*background-image: url("../pictures/WelcomeBg.jpg");*/
+}
+
+.adminTable
+{
+	background-color: #ffffff;
+}
+
+.btn-labeled {position: relative; padding: 6px 12px; font-weight: bold;}
+.btn { margin-bottom:40px; }
+.btn-decline
+{
+	float: left;
+}
+.btn-accept
+{
+	float: right;
+}
+.btn-feedback
+{
+	padding-left:30%;
+}

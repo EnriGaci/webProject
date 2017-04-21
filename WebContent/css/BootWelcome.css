@@ -1,0 +1,61 @@
+body, html {
+    height: 100%;
+    background-repeat: no-repeat;
+    /*background-image: url("../pictures/WelcomeBg.jpg");*/
+}
+
+.successMsg
+{
+	position: absolute;
+	top:20%;
+	left:25%;
+}
+
+.signUpInput
+{
+	
+	margin-bottom: 15px;
+	
+}
+
+.signUpDiv
+{
+	position: inherit;
+	max-width: 350px;
+	height: auto;
+	background-color: #e6dde5;
+	padding: 20px;
+	left:40%;
+	top: 10%;
+}
+
+.card-container.card {
+    max-width: 350px;
+    padding: 40px 40px;
+    background-color: #e6dde5;
+    position: absolute;
+    top: 20%;
+  	left: 40%;
+}
+
+.profileImg{
+	position:relative;
+	width:60%;
+	height:60%;
+	left:20%;
+}
+
+.btn {
+    font-weight: 700;
+    height: 36px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+    margin-top: 40px;
+}
+
+.signUpBtn{
+	margin-top: 20px;
+	margin-left: 35%;
+}

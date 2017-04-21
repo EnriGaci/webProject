@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html ng-app="auctionsApp">
+<head>
+
+	<meta charset="UTF-8">
+
+	<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./css/auctions.css" />
+	
+	<script type="text/javascript" src="./angular.min.js"></script>
+	<script type="text/javascript" src="./jquery.min.js"></script>
+	<script type="text/javascript" src="./bootstrap.min.js"></script>
+	<script type="text/javascript" src="./JavaScripts/auctions.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	<script type="text/javascript" src="./JavaScripts/cookie.js"></script>
+	<script type="text/javascript" src="./JavaScripts/menu.js"></script>
+	
+<title>Insert title here</title>
+</head>
+<body ng-controller="AuctionsController">
+
+	<menu-directive></menu-directive>
+	
+	<div class="container" ng-init="getItemsFromDb()">
+	
+		<label for="comment">Select Category:</label>
+		<ul class="nav nav-pills " ng-init="initCategories()">
+			<li  ng-repeat="category in categories track by $index" ng-class="{ active: isSelectedCategory(category) }" class="categoriesUl">
+				<a herf ng-click="selectCategory(category)">{{category}}</a>
+			</li>
+		</ul>
+		
+		<label for="comment">Select Location:</label>
+		<ul class="nav nav-pills " ng-init="initLocation()" >
+			<li  ng-repeat="location in locations" ng-class="{ active: isSelectedLocation(location) }" class="categoriesUl">
+				<a herf ng-click="selectLocation(location)">{{location}}</a>
+			</li>
+		</ul>
+		
+		<label for="comment" >Description:</label>
+		<textarea class="form-control " ng-model="partOfDescription"></textarea>
+		
+		<label for="comment">Price:</label>
+		<textarea class="form-control" ng-model="price"></textarea>
+		
+		<ul class="list-group" ng-controller="PreviewController">
+			<li class="list-group-item" ng-repeat="item in items track by $index" ng-show="showItem(item)">
+				<div class="  cover-card" ng-init="tab=false"  ng-show="tab===false">
+					<img alt="" ng-src="{{item.images[0]}}" >
+					<p>
+						{{item.name}}
+					</p>
+				</div>
+				<button ng-click="tab = changeTab(tab,item)" class="btn btn-info btnShowSpecifications" ng-show="tab===false">Show more</button>
+				<button ng-click="tab = changeTab(tab)" class="btn btn-info btnShowSpecifications" ng-show="tab===true">Show less</button>
+				
+				<div ng-show="tab===true" ng-init="showInMap=0" ng-controller='BidsController'>
+				
+					<div class="itemSpecsDiv">
+						<p ng-include="'item-specs.html'"></p>
+					</div>
+					
+					<button ng-click="setShowInMap(1)" class="btnPlaceBid btn btn-info btn-lg" ng-show="isShowInMapSelected(0)">Show in map</button>
+					<button ng-click="setShowInMap(0)" class="btnPlaceBid btn btn-info btn-lg" ng-show="isShowInMapSelected(1)">Hide map</button>
+					<img ng-show="showInMap===1" class="mapImg" alt="Sorry no location available" src="https://maps.googleapis.com/maps/api/staticmap?
+					center={{item.latitude}},{{item.longitude}}&
+					zoom=14&size=700x400&markers=color:red%7C{{item.latitude}},{{item.longitude}}">	
+					
+					<div ng-show="isLogedInUser()">
+					
+						<h1>Your bid: {{bid|currency}}</h1>
+						<input type="number" class=" bidText form-control" id="bidAmmount"  ng-model="bid"  ng-keyup="isNumeric()" step="1"/>
+						<p class="nonValidNumberText alert alert-warning" ng-show="notANumber()">Please insert a valid number<p>
+						<p class="verificationP alert alert-warning" ng-show="isSelectedBidVerificaton()">
+							Are you sure you want to bid {{bid|currency}}
+						</p>
+						<p class="nonValidNumberText alert alert-warning fade in" ng-show="lowBidError()">Bid too low<p>
+						
+						<div id="bidVerificationBtns">
+							<button ng-click="cancelBid()" class="btnRegret btn btn-danger btn-lg" ng-show="isSelectedBidVerificaton()">I immediately regret my decision</button>
+							<button ng-click="submitBid(item)" class="btnSure btn btn-success btn-lg" ng-show="isSelectedBidVerificaton()">Of course I am sure!</button>
+							<span class="clear"></span>
+						</div>
+						
+						<!-- An den exei kanei login na zhthseis login gia na kanei bid -->
+						
+						<button ng-click="verifyBid()" class="btnPlaceBid btn btn-success btn-lg" ng-show="!isSelectedBidVerificaton()">Place Bid</button>
+					
+					</div>
+					
+					<p class="notLogedInInfo alert alert-info" ng-show="!isLogedInUser()">You have to login in order to place a bid <p>
+					
+				</div>
+				
+			</li>
+		</ul>
+	
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,64 @@
+.categoriesUl
+{
+	margin-bottom:20px;
+}
+.notLogedInInfo
+{
+	clear:both;
+	margin-top:10px;
+	text-align: center;
+}
+
+.descriptionSearch
+{
+	margin-top:50px;
+}
+
+.btnShowSpecifications
+{
+	font-weight:bold;
+}
+.btnPlaceBid
+{
+	margin-left:40%;
+	margin-top:10px;
+}
+.btnSure
+{
+	float:right;
+	margin-bottom: 40px;
+	margin-right:40px;
+}
+.btnRegret
+{
+	float:left;
+	margin-bottom: 40px;
+	margin-left:40px;
+}
+.clear
+{
+	clear: left; display: block;
+}
+.bidVerificationBtns
+{
+	overflow: hidden;
+}
+.mapImg
+{
+	margin-top:10px;
+	width:100%;
+	height:400px;
+}
+.nonValidNumberText
+{
+	font-size:10pt;
+	width:35%;
+}
+.verificationP
+{
+	clear:both;
+}
+.bidText
+{
+	width:50px;
+}

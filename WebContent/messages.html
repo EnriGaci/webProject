@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="messages">
+<head>
+
+	<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./css/messages.css" />
+	
+	<script type="text/javascript" src="./angular.min.js"></script>
+	<script type="text/javascript" src="./jquery.min.js"></script>
+	<script type="text/javascript" src="./JavaScripts/messages.js"></script>
+	<script type="text/javascript" src="./JavaScripts/cookie.js"></script>
+	<script type="text/javascript" src="./JavaScripts/menu.js"></script>
+	
+	<meta charset="UTF-8">
+	
+<title>Insert title here</title>
+</head>
+<body>
+
+	<menu-directive></menu-directive>
+	
+	<div class="container" >
+		
+		<section ng-controller="PanelController">
+			<ul class="nav nav-pills">
+				<li ng-class="{active:tab === 1}"><a herf ng-click="selectTab(1)">Inbox</a></li>
+				<li ng-class="{active:tab === 2}"><a herf ng-click="selectTab(2)">Outbox</a></li>
+				<li ng-class="{active:tab === 3}"><a herf ng-click="selectTab(3)">Create Message</a></li>
+			</ul>
+			
+			<div class="panel optionDiv" ng-show="isSelected(1)">
+				<ul class="nav ">
+				<li ng-repeat="message in inbox track by $index" ng-init="initShow($index)">
+					<a href ng-click="changeMessageState($index,message)">{{message.sender}}</a>
+					<p ng-show="show[$index]">{{message.text}}<p>
+				</li>
+				</ul>
+			</div>
+			<div class="panel optionDiv" ng-show="isSelected(2)">
+				<ul class="nav ">
+					<li ng-repeat="message in outbox track by $index" ng-init="show=false">
+						<a href ng-click="show=!show">{{message.reciever}}</a>
+						<p ng-show="show">{{message.text}}<p>
+					</li>
+				</ul>
+			</div>
+			<div class="panel optionDiv" ng-show="isSelected(3)">
+				<label>Message:</label>
+				<textarea class="form-control " ng-model="newMessage.text"></textarea>
+				<label>To:</label>
+				<textarea class="form-control" ng-model="newMessage.reciever"></textarea>
+				<button class="btnSend btn btn-success btn-lg" ng-click="sendMessage()">Send Message</button>
+				
+				<p class="feedbackP alert alert-success" ng-show="successfulSent">Message was successfuly sent!<p>
+				<p class="feedbackP alert alert-danger" ng-show="senderNotExists">Ooops sender name doesn't exist<p>
+				<p class="feedbackP alert alert-danger" ng-show="serviceError">
+					We are very sorry that something went wrong with our service please try again in a while.
+				<p>
+				
+			</div>
+		
+		</section>
+	
+	</div>
+
+</body>
+</html>

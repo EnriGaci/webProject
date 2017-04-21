@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="menu">
+<head>
+
+	<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./css/menu.css" />
+	
+	<script type="text/javascript" src="./angular.min.js"></script>
+	<script type="text/javascript" src="./JavaScripts/cookie.js"></script>
+	<script type="text/javascript" src="./JavaScripts/menu.js"></script>
+	
+	<meta charset="UTF-8">
+	
+<title>Insert title here</title>
+</head>
+<body >
+
+	<nav class="navbar navbar-inverse navbar-fixed-top animate" ng-controller="MenuController">
+		<div class="container">
+			<div class="navbar-header hidden-xs">
+				<a class="navbar-brand" href="#">Ted Auction House</a>
+			</div>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="./myIndex.html">
+						<span class="menu-icon fa fa-home"></span>
+						Home
+					</a>
+				</li>
+				<li>
+					<a href="./Auctions.html">
+						<span class="menu-icon fa fa-home"></span>
+						Auctions
+					</a>
+				</li>
+				<li ng-show="!isLogedIn()">
+					<a href="./BootWelcome.html" >
+						<span class="menu-icon fa fa-ship"></span>
+						Log In
+					</a>
+				</li>
+				<li ng-show="isLogedIn()">
+					<a href onclick="deleteCookie()">
+						<span class="menu-icon fa fa-bell-o"></span>
+						Log Out
+					</a>
+				</li>
+				<li ng-controller="NewMessageController" ng-init="getNewMessages()" ng-show="isLogedIn()">
+					<a href="./messages.html">
+						<span class="menu-icon fa fa-bell-o"></span>
+						Messages
+						<span class="menu-icon fa fa-bell-o" ng-show="newMessagesCounter">{{newMessagesCounter}}</span>
+					</a>
+				</li>
+				<li ng-show="isLogedIn()">
+					<a href="./Recommendations.html">
+						<span class="menu-icon fa fa-bell-o"></span>
+						Recommendations
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+</body>
+</html>

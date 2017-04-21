@@ -1,0 +1,26 @@
+.subInformation
+{
+	text-overflow: ellipsis;
+	font-weight: bold;
+	width:500px;
+	font-size: 15pt;
+}
+
+p
+{
+	font-weight:bold;
+	font-size:30px;
+}
+.tableItemPhotos
+{
+	clear:both;
+	height:auto;
+	width:100%;
+	margin-top:6px;
+}
+
+.specsDiv
+{
+	clear:both;
+	margin-left:20%;
+}

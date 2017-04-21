@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app="logInApp">
+<head>
+<title>Insert title here</title>
+
+	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./css/BootWelcome.css">
+	
+	<script type="text/javascript" src="./angular.min.js"></script>
+	<script type="text/javascript" src="./JavaScripts/menu.js"></script>
+	<script type="text/javascript" src="./JavaScripts/bootWelcome.js"></script>
+	<script type="text/javascript" src="./JavaScripts/cookie.js"></script>
+
+</head>
+<body ng-controller="SignController">
+	
+	<menu-directive></menu-directive>
+
+	<div class="container">
+	
+		<div ng-show=showSignIn class="card card-container">
+
+			<img id="profile-img" class="profile-img-card profileImg" src="./pictures/LogInAvatar.png" />
+	
+			<p id="profile-name" class="profile-name-card"></p>
+	
+			<form class="form-signin" ng-submit="logIn();">
+				<input type="text" id="username" class="form-control" placeholder="Username" required autofocus>
+				<input type="password" id="password" class="form-control" placeholder="Password" required>
+				<span class="help-inline alert-danger" ng-show=wrongPassWord>Sorry, something is wrong please try again</span>
+				<span class="help-inline alert-info" ng-show=forbidden>We are waiting for the admin to accept you</span>
+				<button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+			</form>
+			<!-- /form -->
+	
+			<button type="button" class="btn btn-info signUpBtn" ng-click="signUpPressed();">Sign Up</button>
+			
+		</div>
+
+			<div ng-show=showSignUp class="signUpDiv">
+				<h2>Sign Up</h2>
+				<form name="signUpForm">
+					<label>Username</label>
+					<span class="help-inline alert-danger spanClass" ng-show=usernameExists>Sorry, this username exists</span>
+					<input type="text" name="username" class="form-control signUpInput" autofocus ng-model="JsonUser.username" required/>
+					<label>Password</label>
+					<input type="text" name="password" class="form-control signUpInput" ng-model="JsonUser.password" required="required">
+					<label>Repeat Password</label>					
+					<span class="help-inline alert-danger spanClass" ng-show="confDoesNotMatch" >Sorry, password doesn't match</span>
+					<input type="text" name="passwordConf" class="form-control signUpInput" required> 
+					<label>First Name</label>
+					<input type="text" name="firstname" class="form-control signUpInput" ng-model="JsonUser.name" required="required"/> 
+					<label>Last Name</label>
+					<input type="text" name="lastname" class="form-control signUpInput" ng-model="JsonUser.surname" required/>
+					<label>Email</label> 
+					<input type="email" name="email" class="form-control signUpInput" ng-model="JsonUser.email" required/> 
+					<label>Telephone</label>
+					<input type="number" name="phoneNumber" class="form-control signUpInput" ng-model="JsonUser.phoneNumber" required>
+					<label>Address</label>
+					<input type="text" name="address" class="form-control signUpInput" ng-model="JsonUser.address" required>
+					<label>Latitude</label>
+					<input type="text" name="latitude" class="form-control signUpInput" ng-model="JsonUser.latitude" required>
+					<label>Longtitude</label>
+					<input type="text" name="longtitude" class="form-control signUpInput" ng-model="JsonUser.longtitude" required>
+					<label>A.F.M</label>
+					<input type="text" name="afm" class="form-control signUpInput" ng-model="JsonUser.afm" required>
+					<label>Location</label>
+					<input type="text" name="country" class="form-control signUpInput" ng-model="JsonUser.location" required>
+					<label>Country</label>
+					<input type="text" name="country" class="form-control signUpInput" ng-model="JsonUser.country" required>
+					 
+					<button type="submit" class="btn btn-primary pull-right" ng-click="signUp()">Sign me Up!</button>
+					
+				</form>
+				
+			</div>
+			
+			<div class="alert alert-success fade in successMsg" ng-show=signUpComplete>
+			
+			        <strong>Success!</strong> Your Sign up has been sent successfully and we are waiting for the administrator to accept you.
+			
+			</div>
+
+	</div>
+	<!-- /container -->
+
+</body>
+</html>

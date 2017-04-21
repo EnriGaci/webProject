@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html ng-app="indexApp">
+<head>
+	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./css/index.css" />
+	
+	<script type="text/javascript" src="./angular.min.js"></script>
+	<script type="text/javascript" src="./jquery.min.js"></script>
+		<script type="text/javascript" src="./bootstrap.min.js"></script>
+	<script type="text/javascript" src="./JavaScripts/index.js"></script>
+	<script type="text/javascript" src="./JavaScripts/cookie.js"></script>
+	<script type="text/javascript" src="./JavaScripts/menu.js"></script>
+
+<title>Insert title here</title>
+</head>
+<body ng-controller="IndexController">
+
+	<menu-directive></menu-directive>
+	
+	<div class="container" >
+	
+		<div ng-show="isSelectedDiv(0)">
+		
+			<div id="manageDiv" ng-show="isLogedInUser()" ng-init="checkUser()">
+				<p id="manageTxt">Manage Auction</p>
+				<a href="" ng-click="setDiv(1)"> <img alt="#" src="./pictures/manageAuction.png" id="manageImg"> </a>
+			</div>
+			<div id="searchDiv">
+				<p id="searchTxt">Search Auction</p>
+				<a href="./Auctions.html"> <img alt="" src="./pictures/searchAuction.png" id="searchImg"> </a>
+			</div>
+		</div>
+			
+		<div ng-show="isSelectedDiv(1)">
+		
+			<ul class="nav nav-pills manageUl">
+				<li ng-class="{active:option === 1}" ><a herf ng-click="selectOption(1)">Create Auction</a></li>
+				<li ng-class="{active:option === 2}" ><a herf ng-click="selectOption(2)">See My Auctions</a></li>
+			</ul>
+		
+		</div>
+
+		<div ng-show="isSelectedOption(1)" id="createActionDiv">
+
+			<item-specs></item-specs>
+			
+			<div id="specificationsDiv">
+			
+				<section ng-controller="PanelController">
+					<ul class="nav nav-pills">
+						<li ng-class="{active:tab === 1}"><a herf ng-click="selectTab(1)">Name</a></li>
+						<li ng-class="{active:tab === 2}"><a herf ng-click="selectTab(2)">Price</a></li>
+						<li ng-class="{active:tab === 3}"><a herf ng-click="selectTab(3)">Description</a></li>
+						<li ng-class="{active:tab === 5}"><a herf ng-click="selectTab(5)">Categories</a></li>
+						<li ng-class="{active:tab === 6}"><a herf ng-click="selectTab(6)">Location</a></li>
+						<li ng-class="{active:tab === 7}"><a herf ng-click="selectTab(7)">End Time</a></li>
+					</ul>
+					<div class="panel" ng-show="isSelected(1)">
+						<label for="comment">Name:</label>
+						<input type="text" class="form-control " ng-model="item.name" required></textarea>
+					</div>
+					<div class="panel" ng-show="isSelected(2)">
+						<label for="comment">Price:</label>
+						<input type="text" class="form-control" ng-model="item.price" required></textarea>
+					</div>
+					<div class="panel" ng-show="isSelected(3)">
+						<label for="comment">Description:</label>
+						<textarea class="form-control" ng-model="item.description" required></textarea>
+					</div>
+					<form ng-controller="CategoryController" ng-submit="addCategory(item)" ng-show="isSelected(5)">
+						<label for="comment" class="">Inserted Categories:</label>
+						<div class="panel" ng-repeat="cat in item.categories track by $index" >
+							<input type="text" class="form-control" rows="2" id="description" ng-model="item.categories[$index]" />
+						</div>
+						<div class="panel">
+							<label for="comment">New Category:</label>
+							<input type="text" class="form-control categoryText" rows="2" id="description" ng-model="category" required/>
+							<input type="submit" class="btn btn-labeled btnSubmit btnInsert btn-success" value="Insert Category" ng-click="addCategory(item)"/>
+						</div>
+					</form>
+					<div class="panel" ng-show="isSelected(6)">
+						<label for="comment">Location:</label>
+						<input type="text" class="form-control" rows="5" id="description" ng-model="item.locationName" required>
+						<label for="comment">Country:</label>
+						<input type="text" class="form-control" rows="5" id="description" ng-model="item.country" required>
+						<label for="comment">Latitude:</label>
+						<input type="text" class="form-control" rows="5" id="description" ng-model="item.latitude" required>
+						<label for="comment">Longitude:</label>
+						<input type="text" class="form-control" rows="5" id="description" ng-model="item.longitude" required></textarea>
+					</div>
+					<div class="panel" ng-show="isSelected(7)">
+						<div class='col-sm-7'>
+							<input type='date' class="form-control" ng-model="item.endsDate" ng-change="resetWarning()" required/>
+				        </div>
+			        </div>
+					
+				</section>
+				
+				<div ng-controller="WarningController">
+					<input type="text" class="form-control alert alert-warning" 
+					rows="2" id="description" ng-show="isSelectedWarning('smallEndDate')" value ="End Date must be grater than current date"/>
+				</div>
+				
+				<button type="submit" class="btn btn-labeled btnSave btn-info btn-lg pull-right" ng-click="insertToDb()" > Save </button>
+				
+				<button type="submit" class="btn btn-labeled btnSubmit btn-success btn-lg" ng-click="startAuction(item)"> Start Auction! </button>
+				
+			</div>
+
+			<div id="okStarted" class=" alert alert-success btn-feedback" ng-show="auctionStarted"> <strong>Inserted!</strong> </div>
+		
+		</div> <!-- Telos div gia dhmiourgia dhmoprasias -->
+		
+		<!-- div gia episkophsei twn dhmoprasiwn mou -->
+		<div ng-show="isSelectedOption(2)" ng-controller="UserAuctionedItems">
+			<ul class="list-group">
+				<li class="list-group-item" ng-repeat="item in items track by $index">
+					<p ng-include="'item-specs.html'"></p>
+					<button id="decline" type="button" class="btn btn-labeled btn-decline btn-danger btn-lg btnDelete" ng-click="deleteAuction(item)"> Delete</button>
+					<button type="button" class="btn btn-labeled btnConfigure btn-success btn-lg" ng-click="configureAuction(item)"> Configure </button>
+				</li>
+			</ul>
+		</div>
+
+	</div>
+	
+</body>
+</html>

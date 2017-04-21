@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="RecApp">
+<head>
+
+	<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./css/menu.css" />
+	
+	<script type="text/javascript" src="./angular.min.js"></script>
+	<script type="text/javascript" src="./JavaScripts/cookie.js"></script>
+	<script type="text/javascript" src="./JavaScripts/menu.js"></script>
+	<script type="text/javascript" src="./JavaScripts/Recommendation.js"></script>
+	
+	<meta charset="UTF-8">
+	
+<title>Insert title here</title>
+</head>
+<body ng-controller = "RecController">
+
+	<menu-directive></menu-directive>
+
+	<div id="container">
+	
+		<ul class="list-group" ng-init = "getRecommendations()">
+			<li class="list-group-item" ng-repeat="item in items track by $index">
+				<p ng-include="'item-specs.html'"></p>
+			</li>
+		</ul>
+	
+	</div>
+
+</body>
+</html>
